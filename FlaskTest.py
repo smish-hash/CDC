@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+
 app = Flask(__name__)
 
 # Characters
@@ -53,7 +54,7 @@ def getTitle():
 # Using the GET method
 @app.route("/database", methods=['GET'])
 def getCharacters():
-    return jsonify({'Characters' : db})
+    return jsonify({'Characters': db})
 
 
 # To get character based on user choice
@@ -97,9 +98,10 @@ def deleteCharacter(characterId):
 @app.route("/database", methods=['POST'])
 def print_post():
     data = request.get_json(force=True)
-    #Algorithm to be implemented here of log.
+    # Algorithm to be implemented here of log.
     db.append(data)
     return jsonify({'Got your data': "True"})
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)

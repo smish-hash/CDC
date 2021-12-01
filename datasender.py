@@ -1,6 +1,7 @@
 import requests
 import json
 
+
 def AddUpdate(dataa):
     data_endpoint = "http://127.0.0.1:5000/database"
     dataa = json.dumps(dataa)
@@ -9,6 +10,7 @@ def AddUpdate(dataa):
         return eval(resp.text)
     else:
         return "Your api has some problem. Status" + str(resp.status_code)
+
 
 def DispData():
     data_endpoint = "http://127.0.0.1:5000/database"
