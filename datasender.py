@@ -1,11 +1,19 @@
 import requests
 import json
+from datetime import datetime
 
 
-def AddUpdate(dataa):
+def AddUpdate(id, dataa):
     data_endpoint = "http://127.0.0.1:5000/database"
-    dataa = json.dumps(dataa)
-    resp = requests.post(url=data_endpoint, data=dataa)
+    now = datetime.now()
+    timestamp = datetime.timestamp(now)
+    # 1577971124.673931
+    # print(timestamp)
+    dta = {'clientid': id, 'timestamp': timestamp, 'data': dataa}
+    dta = json.dumps(dta)
+    # print(type(dataa))
+    # print(type(dta))
+    resp = requests.post(url=data_endpoint, data=dta)
     if resp.status_code == 200:
         return eval(resp.text)
     else:
