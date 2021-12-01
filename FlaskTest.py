@@ -5,7 +5,29 @@ app = Flask(__name__)
 # Wheel of Time
 db = [{}]
 
-
+# def AddLog(data):
+#     pos=-1
+#     max=data['timestamp']
+#     for i in len(db):
+#         if(db[i]['clientid']==data['clientid'] and (data['timestamp']-db[i]['timestamp'])<=max):
+#             pos=i
+#             max=(data['timestamp']-db[i]['timestamp'])
+#     print(pos)
+#     if (pos==-1):
+#         return data
+#     set1=set(db[pos].items())
+#     set2=set(data.items())
+#     log = dict({'clientid':data['clientid'],'timestamp':data['timestamp']})
+#     log.update(set1^set2)
+    
+            
+            
+    
+    
+    
+    
+    
+    
 @app.route('/')
 def getTitle():
     return "Flask is running\nWelcome to The Wheel of Time"
@@ -14,7 +36,7 @@ def getTitle():
 # Using the GET method
 @app.route("/database", methods=['GET'])
 def getCharacters():
-    return jsonify({'Characters' : db})
+    return jsonify({'Data':db})
 
 
 # To get character based on user choice
