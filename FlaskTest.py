@@ -1,28 +1,13 @@
 from flask import Flask, jsonify, request
+from deepdiff import DeepDiff
 
 app = Flask(__name__)
 
 # Characters
 # Wheel of Time
 db = []
-
 log = []
-
-
-# def AddLog(data):
-#     pos=-1
-#     max=data['timestamp']
-#     for i in len(db):
-#         if(db[i]['clientid']==data['clientid'] and (data['timestamp']-db[i]['timestamp'])<=max):
-#             pos=i
-#             max=(data['timestamp']-db[i]['timestamp'])
-#     print(pos)
-#     if (pos==-1):
-#         return data
-#     set1=set(db[pos].items())
-#     set2=set(data.items())
-#     log = dict({'clientid':data['clientid'],'timestamp':data['timestamp']})
-#     log.update(set1^set2)
+dataset = []
 
 
 @app.route('/')
@@ -33,7 +18,7 @@ def getTitle():
 # Using the GET method
 @app.route("/database", methods=['GET'])
 def getCharacters():
-    return jsonify({'Logs': log})
+    return jsonify({'Dataset': dataset})
 
 
 # To get character based on user choice
@@ -78,40 +63,86 @@ def deleteCharacter(characterId):
 def print_post():
     data = request.get_json(force=True)
     # Algorithm to be implemented here of log
-    findLog(data)
+    addDatabase(data)
+    findChanges(data)
     # db.append(data)
     return jsonify({'Got your data': "True"})
 
 
-def findLog(data):
+def addDatabase(data):
+    if len(dataset) == 0:
+        print("Dataset Empty, creating id dataset")
+        lst2 = []
+        dst = {'dataset -- ': data['data']}
+        lst2.append(dst)
+        temp = {'clientid': data['clientid'], 'dataset': lst2}
+        dataset.append(temp)
+    else:
+        flag = 0
+        for i in dataset:
+            if i['clientid'] == data['clientid']:
+                print("dataset id present, adding to existing id")
+                dst = {'dataset -- ': data['data']}
+                i['dataset'].append(dst)
+                flag = 1
+                break
+
+        if flag == 0:
+            # Adding new client dataset
+            print("dataset id not present, creating id dataset")
+            lst1 = []
+            dst = {'dataset -- ': data['data']}
+            lst1.append(dst)
+            temp = dict({'clientid': data['clientid'], 'dataset': lst1})
+            dataset.append(temp)
+
+
+def addToLog(diff, data):
     if len(log) == 0:
         print("log empty - creating log")
         # log 0
-        temp = dict({'clientid': data['clientid'], 'data': data['data'], 'timestamp': data['timestamp']})
+        lst2 = []
+        dct = {'timestamp -- ': data['timestamp'], 'dateTime -- ': data['dateTime'], 'log -- ': diff}
+        lst2.append(dct)
+        temp = {'clientid': data['clientid'], 'log': lst2}
         log.append(temp)
     else:
         flag = 0
         for i in log:
             if i['clientid'] == data['clientid']:
-                print("id present")
-                # Algorithm to add difference to be implemented here
-                findChanges()
+                print("client id %d present in log, updating log\n" % (int(i['clientid'])))
+                logFile = {'timestamp -- ': data['timestamp'], 'dateTime -- ': data['dateTime'], 'log -- ': diff}
+                i['log'].append(logFile)
                 flag = 1
                 break
 
         if flag == 0:
             # Adding new client
-            print("not present")
+            print("Log id not present, creating log id")
             # log 0 for the new client id
             lst1 = []
-            dct = {'timestamp': data['timestamp'], 'data': data['data']}
+            dct = {'timestamp -- ': data['timestamp'], 'dateTime -- ': data['dateTime'], 'log -- ': diff}
             lst1.append(dct)
-            temp = dict({'clientid': data['clientid'], 'data': lst1})
+            temp = dict({'clientid': data['clientid'], 'log': lst1})
             log.append(temp)
 
+    print(log)
 
-def findChanges():
-    pass
+
+def findChanges(data):
+    for i in dataset:
+        if i['clientid'] == data['clientid']:
+            print("In findChanges: %d id found\n" % (int(data['clientid'])))
+            clientDataList = i['dataset']
+            if len(clientDataList) > 1:
+                dct1 = clientDataList[-1]['dataset -- ']  # current dataset
+                dct2 = clientDataList[-2]['dataset -- ']  # previous dataset
+
+                diff = DeepDiff(dct2, dct1)
+                addToLog(diff, data)
+                break
+            else:
+                break
 
 
 if __name__ == '__main__':

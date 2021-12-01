@@ -4,7 +4,7 @@
       "roll": "1928115",
       "gender": "Male",
       "id": "0",
-      "name": "Satyajit Mishra"
+      "name": "smish"
     },
     {
       "roll": "1928090",
@@ -13,7 +13,7 @@
       "name": "Chinmay Pal"
     },
     {
-      "roll": "1928135",
+      "roll": "1928140",
       "gender": "Female",
       "id": "2",
       "name": "Suchismita Bose"
@@ -41,6 +41,12 @@
       "gender": "Male",
       "id": "6",
       "name": "Tushar Dugar"
+    },
+    {
+      "roll": "1905686",
+      "gender": "Male",
+      "id": "7",
+      "name": "Lekhansh Ruprela"
     }
   ]
 }

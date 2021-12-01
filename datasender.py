@@ -9,7 +9,7 @@ def AddUpdate(id, dataa):
     timestamp = datetime.timestamp(now)
     # 1577971124.673931
     # print(timestamp)
-    dta = {'clientid': id, 'timestamp': timestamp, 'data': dataa}
+    dta = {'clientid': id, 'timestamp': timestamp, 'data': dataa, 'dateTime': now.strftime("%m/%d/%Y, %H:%M:%S")}
     dta = json.dumps(dta)
     # print(type(dataa))
     # print(type(dta))
