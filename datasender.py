@@ -16,7 +16,7 @@ def AddUpdate(id, dataa):
     # print(type(dta))
     resp = requests.post(url=data_endpoint, data=dta)
     if resp.status_code == 200:
-        return eval(resp.text)
+        return (json.dumps((eval(resp.text)), indent=4, sort_keys=True))
     else:
         return "Your api has some problem. Status" + str(resp.status_code)
 
@@ -41,6 +41,6 @@ def DispData(userid,caldate):
     # print(type(data))
     resp = requests.post(url=data_endpoint, data=data)
     if resp.status_code == 200:
-        return eval(resp.text)
+        return (json.dumps((eval(resp.text)), indent=4, sort_keys=True))
     else:
         return "Your api has some problem. Status" + str(resp.status_code)

@@ -1,10 +1,10 @@
 {
   "Students": [
     {
-      "roll": "1928115",
+      "roll": "11235",
       "gender": "Male",
       "id": "0",
-      "name": "smish"
+      "name": "Satyajit Mishra"
     },
     {
       "roll": "1234567",
@@ -14,7 +14,7 @@
     },
     {
       "roll": "1928140",
-      "gender": "Female",
+      "gender": "Dxd",
       "id": "2",
       "name": "Suchismita"
     },
@@ -26,7 +26,7 @@
     },
     {
       "roll": "1928120",
-      "gender": "Male",
+      "gender": "FeMale",
       "id": "4",
       "name": "Shrey Patnaik"
     },
@@ -34,10 +34,10 @@
       "roll": "1928114",
       "gender": "Female",
       "id": "5",
-      "name": "Halalu Lala"
+      "name": "Kuch bhi Lala"
     },
     {
-      "roll": "1905686",
+      "roll": "767",
       "gender": "Male",
       "id": "7",
       "name": "Lekhansh Ruprela"
