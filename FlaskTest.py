@@ -14,11 +14,56 @@ dataset = []
 def getTitle():
     return "Flask is running\nWelcome to The Wheel of Time"
 
+def finddataset(cid,tme):
+    c=0
+    for i in dataset:
+        if i['clientid']==cid:
+            c+=1
+            print("Client dataset found - \n\n",i['dataset'][-1])
+            return (i['dataset'][-1])
+    if(c==0):
+        print("Client dataset not present")
+        return {}
+
+            
+def findlogs(cid,tme):
+    c=0
+    for i in log:
+        if i['clientid']==cid:
+            c+=1
+            print("Client logs found - \n\n")
+            lst=[]
+            d=0
+            for j in i['log']:
+                if((j['timestamp -- ']-tme)>0):
+                    d+=1
+                    lst.append(j)
+            strng="Found "+str(d)+" logs - "
+            lst1=[strng]
+            lst1.append(lst)
+            return lst1
+        
+    if(c==0):
+        print("Client logs not present")
+        return {}
+            
+
+
+
+@app.route("/clientcall", methods=['POST'])
+def Clientoutput():
+    data = request.get_json(force=True)
+    clientid=data[0]
+    tmestmp=data[1]
+    cldata=[finddataset(clientid,tmestmp)]
+    cldata.append(findlogs(clientid,tmestmp))
+    return jsonify({'Your current dataset is':cldata})
+
 
 # Using the GET method
 @app.route("/database", methods=['GET'])
 def getCharacters():
-    return jsonify({'Dataset': dataset})
+    return jsonify({'Current Dataset': dataset})
 
 
 # To get character based on user choice
