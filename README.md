@@ -1,3 +1,5 @@
+<a href="dell"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Dell_logo_2016.svg/1200px-Dell_logo_2016.svg.png" align="left" height="48" width="48" ></a>
+<br>
 # Dell-H2H-CDC
 
 Capture data changes (History) – Every time a change is made to the data, the old data should be captured as history
